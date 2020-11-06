@@ -1,0 +1,25 @@
+# Check global log works for more than one branch
+> init
+<<<
++ f.txt wug.txt
+> add f.txt
+<<<
+> commit "add f"
+<<<
+> branch other
+<<<
+> checkout other
+<<<
++ g.txt notwug.txt
+> add g.txt
+<<<
+> commit "add g"
+<<<
+D HEADER "commit [a-f0-9]+"
+D DATE "Date: \w\w\w \w\w\w \d+ \d\d:\d\d:\d\d \d\d\d\d [-+]\d\d\d\d"
+D COMMIT_LOG "(===[ ]*\ncommit [a-f0-9]+[ ]*\n(?:Merge:\s+[0-9a-f]{7}\s+[0-9a-f]{7}[ ]*\n)?${DATE}[ ]*\n(?:.|\n)*?(?=\Z|\n===))"
+> global-log
+${COMMIT_LOG}
+${COMMIT_LOG}
+${COMMIT_LOG}
+<<<*
